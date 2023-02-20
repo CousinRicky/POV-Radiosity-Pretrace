@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>Radiosity-Pretrace 1.1.1 User Manual</title>
+<link rel="stylesheet" type="text/css" href="radiosity-pretrace.css">
+</head>
+
+<body>
+
+<h1>Radiosity-Pretrace 1.1.1 User Manual</h1>
+
+<p>This document explains how to use the <a href="https://www.povray.org/">POV-Ray</a> SDL file <code>radiosity-pretrace.inc</code>, which implements some of the radiosity pretrace recomendations in <a href="https://news.povray.org/povray.text.tutorials/thread/%3Cweb.495b9ce3ad98218d483cfa400%40news.povray.org%3E/">Radiosity Voodoo Volume 2</a> in povray.text.tutorials. The main reason for creating the file was to automatically generate an ideal <code>pretrace_start</code> value by calculating the power of 2 by which to multiply the <code>pretrace_end</code> without exceeding a given maximum.
+
+<h2>Downloaded Files</h2>
+
+<p>The zip archive should contain these files:
+
+<ul>
+ <li><code>LICENSE</code>
+ <li><code>radiosity-pretrace.css</code>
+ <li><code>radiosity-pretrace.html</code>
+ <li><code>radiosity-pretrace.inc</code>
+ <li><code>README.md</code>
+</ul>
+
+<p>File <code>radiosity-pretrace.inc</code> is the only file required for rendering; the others are legal or part of the documentation.
+
+<h2>Prerequisite</h2>
+
+<p>Radiosity-Pretrace requires POV-Ray version 3.5 or later.
+
+<p>Finish ambients will work as expected for POV-Ray versions 3.5 through 3.8.
+
+<h2>Usage</h2>
+
+<ol>
+ <li>
+  <p>Include this file once prior to using the macro:
+  <pre>#include "radiosity-pretrace.inc"</pre>
+  <p>Including the file more than once is harmless, though unnecessary.
+
+ <li>
+  <p>(Optional.) To write the radiosity settings to the debug stream, set identifier <code>Radiosity_Pretrace_debug</code> to <code>true</code> before the next step:
+  <pre>#declare Radiosity_Pretrace_debug = true;</pre>
+
+ <li>
+  <p>Call <code>Radiosity_Pretrace()</code> from within the radiosity block. For example:
+<pre>global_settings
+{ radiosity
+  { count 200
+    error_bound 0.5
+    <strong>Radiosity_Pretrace (0.1, 1)</strong>
+    recursion_limit 2
+  }
+}</pre>
+</ol>
+
+<h2>Macro</h2>
+
+<h3>Radiosity_Pretrace (Max, Min)</h3>
+
+<p>Sets <code>pretrace_start</code> and <code>pretrace_end</code>. The arguments are:
+
+<dl class="args">
+ <dt><code>Max</code>:
+ <dd>The maximum value for <code>pretrace_start</code>. The actual value used may be less than this, but will always be more than half this value.
+ <dt><code>Min</code>:
+ <dd>If less than 1.0, this will be used directly as the <code>pretrace_end</code>. If 1.0 or greater, this will be the <code>pretrace_end</code> value in pixels.
+</dl>
+
+<p>For the Radiosity Voodoo recommendation, pass 1 as the <code>Min</code> argument. However, I find that 2 is usually sufficient. If you are still using POV-Ray 3.6, a value of 0.01 is often sufficient.
+
+<h2>Examples</h2>
+
+<h3>Example 1</h3>
+
+<pre>radiosity
+{ Radiosity_Pretrace (0.1, 2)
+}</pre>
+
+<p>If this is rendered at 800 by 600 pixels, <code>Min</code> argument 2 translates to a <code>pretrace_end</code> of 2/800. The largest power of 2 that will not cause <code>pretrace_start</code> to exceed <code>Max</code> argument 0.1 is 5, and (2/800) &times; 2⁵ = 0.08. The resulting radiosity block is:
+
+<pre>radiosity
+{ pretrace_start 0.08
+  pretrace_end 0.0025
+}</pre>
+
+<h3>Example 2</h3>
+
+<pre>radiosity
+{ Radiosity_Pretrace (0.08, 0.01)
+}</pre>
+
+<p>Since the <code>Min</code> argument is less than 1.0, it will be used directly as the <code>pretrace_end</code>. The largest power of 2 that will not cause <code>pretrace_start</code> to exceed <code>Max</code> argument 0.08 is 3, and 0.01 &times; 2³ = 0.08. The resulting radiosity block is:
+
+<pre>radiosity
+{ pretrace_start 0.08
+  pretrace_end 0.01
+}</pre>
+
+<h2>About Radiosity-Pretrace</h2>
+
+<address>
+<p>Copyright © 2014 &ndash; 2023 Richard Callwood III. Some rights reserved.
+<p>Licensed under the Apache License, Version 2.0 (the “License”);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+&lt;<a href="https://www.apache.org/licenses/LICENSE-2.0">https://www.apache.org/licenses/LICENSE-2.0</a>>.
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an “AS IS” BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</address>
+
+<h3>Change Log</h3>
+
+<table>
+ <tr><th>Version</th> <th>Date</th> <th>Notes</th></tr>
+ <tr>
+  <td>1.0</td>
+  <td>2014 January 16</td>
+  <td>
+   <ul>
+    <li>The initial release.
+   <ul>
+  </td>
+ </tr><tr>
+  <td>1.0a</td>
+  <td>2014 January 17</td>
+  <td>
+   <ul>
+    <li>A correction is made to the user manual.
+   <ul>
+  </td>
+ </tr><tr>
+  <td>1.1</td>
+  <td>2019 July 8</td>
+  <td>
+   <ul>
+    <li>If the radiosity settings are invalid, then they are written to the debug stream regardless of the <code>Radiosity_Pretrace_debug</code> setting.
+    <li>The message to the debug stream stating that <code>radiosity-pretrace.inc</code> is included is suppressed by default.
+   <ul>
+  </td>
+ </tr><tr>
+  <td>1.1.1</td>
+  <td>2023 February 19</td>
+  <td>
+   <ul>
+    <li>The POV-Ray version is auto-detected within a range.
+    <li>The license is changed.
+   <ul>
+  </td>
+ </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+/* radiosity-pretrace.css
+ *
+ * Copyright © 2014 - 2023 Richard Callwood III.  Some rights reserved.
+ * This work is licensed under the Apache License 2.0.
+ * See https://www.apache.org/licenses/LICENSE-2.0 for more information.
+ *
+ * Version 1.1.1  2023-Feb-19
+ */
+a:link    { color:#00c; }
+a:visited { color:#606; }
+a:focus   { background:#ccc; }
+a:hover   { background:#fcd; }
+a:active  { background:red; color:white; }
+
+address
+{ margin:0; padding:0; line-height:1.2;
+}
+body
+{ margin:0; padding:0 6% 3%; line-height:1.2;
+  color:black; background:#f0eeea;
+}
+code
+{ font-family:"Consolas", "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", monospace;
+  font-size:100%;
+  letter-spacing:-0.05em;
+}
+dd
+{ margin:0.3em 0em 0.9em 2em;
+  padding:0;
+  line-height:1.2;
+}
+dl
+{ margin:0.6em 0%;
+  padding:0;
+  line-height:1.2;
+}
+div, dt
+{ margin:0; padding:0; line-height:1.2;
+}
+h1
+{ margin:0.3em 10%;
+  padding:0.25em 0.6em;
+  line-height:1.2;
+  border:solid 3px;
+  border-radius:25px;
+  -moz-border-radius:10px;
+  border-color:#ffe6ec #cc99a6 #cc99a6 #ffe6ec;
+  background:#ffccd9; color:black;
+  font-family:Verdana, Arial, Helvetica, sans-serif;
+  text-align:center;
+}
+h2
+{ margin:0.6em -3% 0.3em;
+  padding:0.2em 0.6em;
+  line-height:1.2;
+  border-width:2px;
+  border-style:solid;
+  border-color:#eef2ff #aab3cc #aab3cc #eef2ff;
+  background:#dde6ff; color:black;
+  font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+h3
+{ margin:0.9em 0% 0.3em -2%;
+  line-height:1.2;
+  font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+li
+{ margin:0;
+  padding:0;
+  line-height:1.2;
+}
+ol, ul
+{ margin:0;
+  padding:0 0em 0 2em;
+  line-height:1.2;
+}
+p
+{ margin:0.6em 0;
+  padding: 0;
+  line-height:1.2;
+}
+pre
+{ margin:0.3em 0 0.6em 0;
+  padding:0.4em 0.6em;
+  line-height:1.2;
+  border:1px solid;
+  border-color:#acaaa6 #fff #fff #acaaa6;
+  background:#e8e6e2; color:black;
+  font-family:"Consolas", "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", monospace;
+  font-size:100%;
+  letter-spacing:-0.05em;
+}
+table
+{ line-height:1.2;
+  margin:0.6em 0;
+  padding:0;
+  border:1px solid;
+  border-color:#fff #acaaa6 #acaaa6 #fff;
+  border-collapse:separate;
+  border-spacing:1px;
+}
+td, th
+{ line-height:1.2;
+  padding:0 0.5em;
+  border:1px solid;
+  border-color:#acaaa6 #fff #fff #acaaa6;
+  background:#e8e6e2; color:black;
+}
+
+.args
+{ margin:0.3em 0%;
+  padding:0.4em 0.6em 0em;
+  border:1px solid;
+  border-color:#acaaa6 #fff #fff #acaaa6;
+  background:#e8e6e2; color:black;
+}
+.args dt
+{ margin:0;
+  padding:0;
+  line-height:1.2;
+  width:2.1em;
+  float:left;
+  clear:left;
+}
+.args dd
+{ margin:0em 0em 0.6em 2.5em;
+  padding:0;
+  line-height:1.2;
+}
